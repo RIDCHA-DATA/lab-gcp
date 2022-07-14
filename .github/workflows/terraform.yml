@@ -26,7 +26,7 @@ jobs:
         shell: bash
 
       - name: Authenticate to Google Cloud
-        id: Authenticate_to_Google_Cloud
+        id: authenticate_to_gcp
         uses: google-github-actions/auth@v0.7.3
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOADIDENTITY_PROVIDER }}
@@ -39,19 +39,19 @@ jobs:
         id: config_project
         run: gcloud config set project vivid-rush-227416
 
-      #- name: "Decrypt key service account"
-       # id: decrypt_SA
-      #  run: gcloud secrets versions access latest --secret="gh-Account" --project="vivid-rush-227416" 
+      - name: "Set gcloud auth"
+        id: decrypt_SA
+        run: gcloud auth login --brief --cred-file="${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}" 
         #working-directory: "environments/${{ env.BRANCH_NAME }}"
 
       - name: "Terraform Init"
         id: terraform_init
-        uses: ops18/terraform-github-actions@master
+        uses: hashicorp/setup-terraform@v2
         with:
-          tf_actions_version: ${{ env.tf_version }}
-          tf_actions_comment: "false"
-          tf_actions_working_dir: ${{ env.tf_working_dir }}
+          terraform_version: ${{ env.tf_version }}
+          terraform_wrapper: "false"
           tf_actions_subcommand: init
+        run: terraform init
         #env:
          # GCP_SA_KEY: ${{ secrets.GCP_SA_KEY}}
       - name: "Terraform Validate"
