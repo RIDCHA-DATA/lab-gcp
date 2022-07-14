@@ -23,6 +23,8 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOADIDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SA_NAME }}
+          token_format: 'access_token'
+          access_token_lifetime: '300s'          
 
       - name: checkout
         id: checkout_code
