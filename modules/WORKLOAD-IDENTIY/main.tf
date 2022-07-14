@@ -7,7 +7,8 @@ module "service_accounts" {
     "${var.project_id}=>roles/viewer",
     "${var.project_id}=>roles/storage.objectViewer",
     "${var.project_id}=>roles/container.clusterAdmin",
-    "${var.project_id}=>roles/iam.workloadIdentityUser",
+    "${var.project_id}=>roles/compute.networkAdmin",
+    "${var.project_id}=>roles/compute.workloadIdentityUser",
   ]
   display_name  = "gh-Account"
   description   = "GH Account for CI purpose"
