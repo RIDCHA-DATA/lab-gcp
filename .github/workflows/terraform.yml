@@ -46,14 +46,14 @@ jobs:
           gcloud services list
         #working-directory: "environments/${{ env.BRANCH_NAME }}"
 
-      - name: "Terraform Init"
+      - name: "Terraform Setup"
         id: setup_tf
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: ${{ env.tf_version }}
+          #terraform_version: ${{ env.tf_version }}
           terraform_wrapper: "false"
 
-      - name: "Terraform Init"
+      - name: "Terraform init"
         id: terraform_init
         run: terraform init
 
