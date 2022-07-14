@@ -42,7 +42,7 @@ jobs:
       - name: "Decrypt key service account"
         id: decrypt_SA
         run: gcloud secrets versions access latest --secret="gh Account" --project="vivid-rush-227416" 
-        working-directory: "environments/${{ env.BRANCH_NAME }}"
+        #working-directory: "environments/${{ env.BRANCH_NAME }}"
 
       - name: "Terraform Init"
         id: terraform_init
