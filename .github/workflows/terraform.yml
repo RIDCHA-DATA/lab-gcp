@@ -43,6 +43,7 @@ jobs:
         id: decrypt_SA
         run: |-
           gcloud auth login --brief --cred-file="${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}"
+          export GOOGLE_APPLICATION_CREDENTIALS= "${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}"
           gcloud services list
         #working-directory: "environments/${{ env.BRANCH_NAME }}"
 
