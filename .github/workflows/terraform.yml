@@ -17,7 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # actions/checkout MUST come before auth
-      - uses: actions/checkout@v3
+      - name: checkout
+        uses: actions/checkout@v3
 
       - name: Set GCP environment
         id: set_gcp_env
@@ -33,9 +34,6 @@ jobs:
           token_format: 'access_token'
           access_token_lifetime: '300s'          
 
-      - name: checkout
-        id: checkout_code
-        uses: actions/checkout@v2
 
       - name: set GCP project
         id: config_project
@@ -43,7 +41,7 @@ jobs:
 
       - name: "Decrypt key service account"
         id: decrypt_SA
-        run: gcloud secrets versions access latest --secret=terraform-sa --project="vivid-rush-227416" 
+        run: gcloud secrets versions access latest --secret="gh Account" --project="vivid-rush-227416" 
         working-directory: "environments/${{ env.BRANCH_NAME }}"
 
       - name: "Terraform Init"

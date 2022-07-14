@@ -20,11 +20,11 @@ module "gh_oidc" {
   project_id  = var.project_id
   pool_id     = var.wl_pool_name
   provider_id = var.wl_provider_id
+        attribute_mapping = var.attribute_mapping
   sa_mapping = {
     "each.value" = {
       sa_name   = "projects/${var.project_id}/serviceAccounts/${each.value}@${var.project_id}.iam.gserviceaccount.com"
-      attribute_mapping = var.attribute_mapping
-      attribute = "attribute.full/RIDCHA-DATA/lab-gcprefs/heads/main"
+      attribute = "attribute.repository_owner/RIDCHA-DATA"
     }
   }
 }
