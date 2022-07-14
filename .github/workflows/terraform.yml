@@ -43,20 +43,20 @@ jobs:
         id: decrypt_SA
         run: |-
           gcloud auth login --brief --cred-file="${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}"
-          export GOOGLE_APPLICATION_CREDENTIALS= "${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}"
           gcloud services list
-        #working-directory: "environments/${{ env.BRANCH_NAME }}"
 
       - name: "Terraform Setup"
         id: setup_tf
         uses: hashicorp/setup-terraform@v2
         with:
           #terraform_version: ${{ env.tf_version }}
-          terraform_wrapper: "false"
+          terraform_wrapper: "false"  
 
       - name: "Terraform init"
         id: terraform_init
         run: terraform init
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: "${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}"
 
       - name: "Terraform Validate"
         id: terraform_validate
