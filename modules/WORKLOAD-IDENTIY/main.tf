@@ -23,7 +23,8 @@ module "gh_oidc" {
   sa_mapping = {
     "each.value" = {
       sa_name   = "projects/${var.project_id}/serviceAccounts/${each.value}@${var.project_id}.iam.gserviceaccount.com"
-      attribute = "attribute.repository/user/repo"
+      attribute_mapping = var.attribute_mapping
+      attribute = "attribute.full/RIDCHA-DATA/lab-gcprefs/heads/main"
     }
   }
 }
