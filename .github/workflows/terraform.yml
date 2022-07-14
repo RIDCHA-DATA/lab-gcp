@@ -47,12 +47,12 @@ jobs:
         #working-directory: "environments/${{ env.BRANCH_NAME }}"
 
       - name: "Terraform Init"
-        id: terraform_init
+        id: setup_tf
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ env.tf_version }}
           terraform_wrapper: "false"
-          
+
       - name: "Terraform Init"
         id: terraform_init
         run: terraform init
