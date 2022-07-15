@@ -12,7 +12,7 @@ required but highly recommended to keep your GKE cluster isolated.
 
 To exchange a GitHub Actions OIDC token for a Google Cloud access token, you must create and configure a Workload Identity Provider. These instructions use the gcloud command-line tool.
 
-[<img src="http://www.google.com.au/images/nav_logo7.png">](http://google.com.au/)
+[<img src="https://storage.googleapis.com/gweb-cloudblog-publish/images/2_GitHub_Actions.max-1100x1100.jpg">](http://google.com.au/)
 
 
 Seamless authentication between Cloud Providers and GitHub without the need for storing any long-lived cloud secrets in GitHub
