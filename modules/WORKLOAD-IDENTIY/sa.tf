@@ -20,6 +20,7 @@ locals {
     "roles/stackdriver.resourceMetadata.writer",
     "roles/compute.networkAdmin",
     "roles/viewer",
+    "roles/storage.admin",
     "roles/storage.objectViewer",
     "roles/storage.objectCreator",
     "roles/container.clusterAdmin",
