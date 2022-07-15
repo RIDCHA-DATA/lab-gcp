@@ -49,7 +49,7 @@ jobs:
         id: setup_tf
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_wrapper: "false"  
+          terraform_wrapper: "true"  
 
       - name: "Terraform init"
         id: terraform_init
