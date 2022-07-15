@@ -11,4 +11,9 @@ terraform {
   provider_meta "google" {
     module_name = "blueprints/terraform/terraform-google-github-actions-runners:gh-oidc/v3.0.0"
   }
+
+  backend "gcs" {
+    bucket = "dataprodev-01"
+    prefix = "terraform/state/terraform.wlf.tfstate"
+  }
 }
