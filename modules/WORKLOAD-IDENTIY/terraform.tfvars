@@ -8,7 +8,9 @@ wl_pool_name = "gh-pool"
 
 wl_provider_id = "gh-provider"
 
-account_names = [ "gh-account" ]
+# sa values
+account_name = "gh-account"
+description  = "GH sa Account for CI purpose"
 
 
 attribute_mapping = {
