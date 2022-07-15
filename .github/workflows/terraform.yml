@@ -1,4 +1,4 @@
-name: 'Terraform GitHub Actions'
+name: 'Terraform gcp'
 on:
   push:
     branches: [ "main" ]
@@ -6,7 +6,7 @@ on:
     branches: [ "main" ]
 env:
   tf_version: '3.52.0'
-  tf_working_dir: '.'
+  tf_working_dir: './02-GKE'
 jobs:
   terraform:
     # Add "id-token" with the intended permissions.
@@ -54,22 +54,25 @@ jobs:
       - name: "Terraform init"
         id: terraform_init
         run: terraform init
+        working-directory : ${{env.tf_working_dir}}
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}"
 
       - name: "Terraform Validate"
         id: terraform_validate
         run: terraform validate
+        working-directory : ${{env.tf_working_dir}}
 
       - name: "Terraform Plan"
         id: terraform_plan
-        run: |-
-          terraform plan -lock=false
+        run: terraform plan -lock=false
+        working-directory : ${{env.tf_working_dir}}  
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}"
           
       - name: "Terraform Apply"
         id: terraform_apply
         run: terraform apply -lock=false -auto-approve
+        working-directory : ${{env.tf_working_dir}}
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}"        
+          GOOGLE_APPLICATION_CREDENTIALS: "${{ steps.authenticate_to_gcp.outputs.credentials_file_path }}"

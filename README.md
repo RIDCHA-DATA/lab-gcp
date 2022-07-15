@@ -1,57 +1,29 @@
-# Learn Terraform - Provision a GKE Cluster
+![example workflow](https://github.com/RIDCHA-DATA/lab-gcp/actions/workflows/terraform.yml/badge.svg)
 
-This repo is a companion repo to the [Provision a GKE Cluster learn guide](https://learn.hashicorp.com/terraform/kubernetes/provision-gke-cluster), containing Terraform configuration files to provision an GKE cluster on GCP.
+# Learn Terraform/GCP - Provision a GKE Cluster
+
+This repo contains Terraform configuration files to provision an GKE cluster on GCP and other GCP services required to setup a full cloud native stack.
 
 This sample repo also creates a VPC and subnet for the GKE cluster. This is not
 required but highly recommended to keep your GKE cluster isolated.
 
 
-## IAM setup for github actions with gcp Workload identiy
+## keyless gcp authentication from github actions with workload identity federation
 
 To exchange a GitHub Actions OIDC token for a Google Cloud access token, you must create and configure a Workload Identity Provider. These instructions use the gcloud command-line tool.
 
-Alternatively, you can also use the [gh-oidc](https://github.com/terraform-google-modules/terraform-google-github-actions-runners/tree/master/modules/gh-oidc) Terraform module to automate your infrastructure provisioning. See examples for usage.
+[<img src="http://www.google.com.au/images/nav_logo7.png">](http://google.com.au/)
 
-1) Create or use an existing GCP project. You must have privileges to create Workload Identity Pools, Workload Identity Providers, and to manage Service Accounts and IAM permissions. Save your project ID as an environment variable. The rest of these steps assume this environment variable is set:
 
-    ```bash
-       PROJECT_ID="my-project" # update with your value
-    ```
-2) (Optional) Create a Google Cloud Service Account. If you already have a Service Account, take note of the email address and skip this step.
+Seamless authentication between Cloud Providers and GitHub without the need for storing any long-lived cloud secrets in GitHub
 
-    ```bash
-       gcloud iam service-accounts create "github-ci-sa" \
-       --project "${PROJECT_ID}"
-    ```
-3) (Optional) Grant the Google Cloud Service Account permissions to access Google Cloud resources. This step varies by use case. For demonstration purposes, you could grant access to a Google Secret Manager secret or Google Cloud Storage object.
 
-4) Enable the IAM Credentials API:
+Alternatively, you can also use the [gh-oidc](https://github.com/terraform-google-modules/terraform-google-github-actions-runners/tree/master/modules/gh-oidc) Terraform module to automate your infrastructure provisioning. See examples for usage under `01-WORKLOAD-IDENTIY` folder.
 
-    ```bash
-       gcloud services enable iamcredentials.googleapis.com \
-       --project "${PROJECT_ID}"
-    ```
-5) Create a Workload Identity Pool:
-
-    ```bash
-      gcloud iam workload-identity-pools create "github-pool" \
-      --project="${PROJECT_ID}" \
-      --location="global" \
-      --display-name="github actions"
-    ```
-    Save this value as an environment variable:
-    
-    ```bash
-      export WORKLOAD_IDENTITY_POOL_ID="..." # value from above
-    ```
-7) Create a Workload Identity Provider in that pool:
-
-```bash
-      gcloud iam workload-identity-pools providers create-oidc "github-provider" \
-      --project="${PROJECT_ID}" \
-      --location="global" \
-      --workload-identity-pool="github-pool" \
-      --display-name="github provider" \
-      --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute repository=assertion.repository" \
-      --issuer-uri="https://token.actions.githubusercontent.com"
-```
+the tf manifst under this folder will perform this action:
+  1) Create a service account for Github actions pipelines.
+  2) Bind all required permissions and roles for this service account.
+  3) Create workload identity federation pool for github actions.
+  4) Create workload identity federation provider in this pool.
+  5) Setup github/gcp mapping for claiming oidc tokens.
+  6) Grant access to service account created in setp 1 to use the provider from github actions workload identity pool. 
