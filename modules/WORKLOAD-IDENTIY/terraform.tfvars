@@ -4,9 +4,9 @@ region     = "asia-east1"
 zone       = "asia-east1-b"
 
 # Workload Identity Federation pool values
-wl_pool_name = "gh-pool"
+wl_pool_name = "github-actions-pool"
 
-wl_provider_id = "gh-provider"
+wl_provider_id = "github-actions-provider"
 
 # sa values
 account_name = "gh-account"

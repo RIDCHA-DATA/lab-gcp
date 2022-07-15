@@ -22,6 +22,7 @@ locals {
     "roles/viewer",
     "roles/storage.objectViewer",
     "roles/container.clusterAdmin",
+    "roles/iam.workloadIdentityUser",
     "roles/iam.serviceAccountUser",
     "roles/compute.networkAdmin"
 
