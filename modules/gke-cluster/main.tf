@@ -168,6 +168,9 @@ resource "google_container_cluster" "cluster" {
   }
 
   resource_labels = var.resource_labels
+  node_config {
+    service_account = "<write value as you like (e.g. service-account@example.com)>"
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
